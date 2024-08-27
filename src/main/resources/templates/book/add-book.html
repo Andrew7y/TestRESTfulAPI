@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Book Information</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f5f5f7;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .form-container {
+            background-color: white;
+            border-radius: 16px;
+            padding: 40px;
+            width: 400px;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 20px;
+            color: #1d1d1f;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        label {
+            font-weight: 500;
+            color: #6e6e73;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        input[type="text"],
+        input[type="date"],
+        select {
+            width: 100%;
+            padding: 10px 14px;
+            border: 1px solid #d2d2d7;
+            border-radius: 8px;
+            font-size: 16px;
+            background-color: #f5f5f7;
+            color: #1d1d1f;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="date"]:focus,
+        select:focus {
+            border-color: #0071e3;
+            box-shadow: 0 0 0 4px rgba(0, 113, 227, 0.3);
+            outline: none;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px 0;
+            font-size: 16px;
+            font-weight: 600;
+            color: white;
+            background-color: #0071e3;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #005bb5;
+        }
+
+        .button-group {
+            margin-top: 20px;
+        }
+
+        .home-button {
+            color: #0071e3;
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-block;
+            padding: 12px 20px;
+            border: 1px solid #d2d2d7;
+            border-radius: 8px;
+            background-color: #f5f5f7;
+            transition: background-color 0.2s ease;
+        }
+
+        .home-button:hover {
+            background-color: #e1e1e1;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="form-container">
+    <h1>Add Book Information</h1>
+    <form th:action="@{/books/add}" method="post" th:object="${book}">
+        <div class="form-group">
+            <label>Title</label>
+            <input type="text" th:field="*{title}" required>
+        </div>
+        <div class="form-group">
+            <label>ISBN</label>
+            <input type="text" th:field="*{isbn}" required>
+        </div>
+        <div class="form-group">
+            <label>Genre</label>
+            <input type="text" th:field="*{genre}" required>
+        </div>
+        <div class="form-group">
+            <label>Published Date</label>
+            <input type="date" th:field="*{publishedDate}" required>
+        </div>
+        <div class="form-group">
+            <label for="author">Author</label>
+            <select id="author" th:field="*{author.id}" required>
+                <option th:each="author : ${authors}" th:text="${author.name}" th:value="${author.id}"></option>
+            </select>
+        </div>
+        <button type="submit">Save</button>
+    </form>
+    <div class="button-group">
+        <a href="/" class="home-button">Home</a>
+    </div>
+</div>
+
+</body>
+
+</html>

@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Books by Genre</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f9f9f9;
+            color: #1d1d1f;
+            margin: 0;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            box-sizing: border-box;
+        }
+
+        h1 {
+            font-size: 36px;
+            font-weight: 700;
+            color: #1d1d1f;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 40px;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            font-size: 18px;
+            margin-bottom: 10px;
+            color: #333;
+            align-self: flex-start;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #d1d1d6;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            text-align: left;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: 600;
+            color: white;
+            background-color: #0071e3;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.2s ease;
+            margin-bottom: 20px;
+            width: 100%;
+        }
+
+        button:hover {
+            background-color: #005bb5;
+        }
+
+        .home-button {
+            display: inline-block;
+            color: #0071e3;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 10px 20px;
+            border: 1px solid #d2d2d7;
+            border-radius: 8px;
+            background-color: #f5f5f7;
+            transition: background-color 0.2s ease;
+            text-align: center;
+            width: 100%;
+        }
+
+        .home-button:hover {
+            background-color: #e1e1e1;
+        }
+
+        table {
+            width: 100%;
+            max-width: 900px;
+            border-collapse: collapse;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            margin-top: 40px;
+        }
+
+        th, td {
+            padding: 15px;
+            font-size: 18px;
+            color: #1d1d1f;
+            border-bottom: 1px solid #e1e1e1;
+        }
+
+        th {
+            background-color: #f5f5f7;
+            font-weight: 600;
+            text-align: left;
+        }
+
+        tr:nth-child(even) {
+            background-color: #f7f7f9;
+        }
+
+        tr:hover {
+            background-color: #f0f0f5;
+        }
+
+        p {
+            font-size: 20px;
+            color: #6e6e73;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 28px;
+            }
+
+            form {
+                width: 100%;
+            }
+
+            input[type="text"] {
+                font-size: 14px;
+            }
+
+            button, .home-button {
+                width: 100%;
+                font-size: 14px;
+            }
+
+            table {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<h1>Books by Genre</h1>
+
+<form action="#" th:action="@{/books/genre}" method="get">
+    <label for="genre">Genre:</label>
+    <input type="text" id="genre" name="genre" />
+    <button type="submit">Search</button>
+    <a href="/" class="home-button">Home</a>
+</form>
+
+<table th:if="${books != null}">
+    <thead>
+    <tr>
+        <th>Title</th>
+        <th>ISBN</th>
+        <th>Genre</th>
+        <th>Published Date</th>
+        <th>Author</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="book : ${books}">
+        <td th:text="${book.title}" data-label="Title"></td>
+        <td th:text="${book.isbn}" data-label="ISBN"></td>
+        <td th:text="${book.genre}" data-label="Genre"></td>
+        <td th:text="${book.publishedDate}" data-label="Published date"></td>
+        <td th:text="${book.getAuthor().getName()}" data-label="Author"></td>
+    </tr>
+    </tbody>
+</table>
+
+<p th:if="${books == null}">No books found for this genre.</p>
+</body>
+
+</html>
